@@ -22,7 +22,7 @@ async function receiveOrders() {
   await channel.assertQueue(queue, { durable: true })
 
   console.log(' [*] Waiting for messages in %s. To exit press CTRL+C', queue)
-  
+  channel.prefetch(1)
   channel.consume(queue, async (msg) => {
     try {
       const order = JSON.parse(msg.content.toString())
